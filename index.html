@@ -1,83 +1,148 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Relógio por Blocos de Tempo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="./css/styles.css" />
-
-</head>
-<body id="fundo" class="min-h-screen flex flex-col items-center justify-center p-4 gap-12">
-
-    <!-- Relógio Digital -->
-    <div class="text-center p-6 rounded-lg mx-12 w-full max-w-md">
-      <h2 class="text-3xl font-bold text-white mb-4">Relógio com Blocos de Tempo</h2>
-      <div id="relogio-digital" class="text-white text-4xl font-mono mb-4"></div>
-      <div id="atividade" class="text-white text-xl font-medium"></div>
-    </div>
-
-    <!-- Mini player do YouTube -->
-
-    <div class="flex flex-col items-center justify-center gap-6 w-full max-w-xl rounded-lg p-6">
-      <h2 class="text-white text-2xl font-bold mb-4">Música de Estudo</h2>
-      <div class="aspect-video w-[640px] rounded-lg overflow-hidden shadow-lg">
-          <iframe 
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1"
-          frameborder="0" 
-          allow="autoplay; encrypted-media"
-          allowfullscreen>
-          </iframe>
-      </div>
-    </div>
-
-  <section class="w-full max-w-xl rounded-lg p-6 mx-12">
-    <h1 class="text-white text-2xl font-bold mb-4">Todo App</h1>
-    <div class="todo-app">
-      <button id="open-task-form-btn" class="btn large-btn">
-        Add New Task
-      </button>
-      <form class="task-form hidden" id="task-form">
-        <div class="task-form-header">
-          <button id="close-task-form-btn" class="close-task-form-btn" type="button" aria-label="close">
-            <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#F44336" d="M21.5 4.5H26.501V43.5H21.5z" transform="rotate(45.001 24 24)" /><path fill="#F44336" d="M21.5 4.5H26.5V43.501H21.5z" transform="rotate(135.008 24 24)" /></svg>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auxiliar de Produtividade</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/list-styles.css" />
+  </head>
+  <body>
+    <main class="main-layout">
+      <!-- Lista -->
+      <section class="card card-todo">
+        <h1 class="section-title">✅ Lista de Tarefas (Todo App)</h1>
+        <div class="todo-app">
+          <button id="open-task-form-btn" class="btn large-btn">
+            Add New Task
           </button>
+          <form class="task-form hidden" id="task-form">
+            <div class="task-form-header">
+              <button
+                id="close-task-form-btn"
+                class="close-task-form-btn"
+                type="button"
+                aria-label="close"
+              >
+                <svg
+                  class="close-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 48 48"
+                  width="48px"
+                  height="48px"
+                >
+                  <path
+                    fill="#F44336"
+                    d="M21.5 4.5H26.501V43.5H21.5z"
+                    transform="rotate(45.001 24 24)"
+                  />
+                  <path
+                    fill="#F44336"
+                    d="M21.5 4.5H26.5V43.501H21.5z"
+                    transform="rotate(135.008 24 24)"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="task-form-body">
+              <label class="task-form-label" for="title-input">Title</label>
+              <input
+                required
+                type="text"
+                class="form-control"
+                id="title-input"
+                value=""
+              />
+              <label class="task-form-label" for="date-input">Date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="date-input"
+                value=""
+              />
+              <label class="task-form-label" for="description-input"
+                >Description</label
+              >
+              <textarea
+                class="form-control"
+                id="description-input"
+                cols="30"
+                rows="5"
+              ></textarea>
+            </div>
+            <div class="task-form-footer">
+              <button
+                id="add-or-update-task-btn"
+                class="btn large-btn"
+                type="submit"
+              >
+                Add Task
+              </button>
+            </div>
+          </form>
+          <dialog id="confirm-close-dialog" class="rounded-lg p-4">
+            <form method="dialog">
+              <p class="discard-message-text">Discard unsaved changes?</p>
+              <div class="confirm-close-dialog-btn-container">
+                <button id="cancel-btn" class="btn">Cancel</button>
+                <button id="discard-btn" class="btn">Discard</button>
+              </div>
+            </form>
+          </dialog>
+          <div id="tasks-container"></div>
         </div>
-        <div class="task-form-body">
-          <label class="task-form-label" for="title-input">Title</label>
-          <input required type="text" class="form-control" id="title-input" value="" />
-          <label class="task-form-label" for="date-input">Date</label>
-          <input type="date" class="form-control" id="date-input" value="" />
-          <label class="task-form-label" for="description-input">Description</label>
-          <textarea class="form-control" id="description-input" cols="30" rows="5"></textarea>
-        </div>
-        <div class="task-form-footer">
-          <button id="add-or-update-task-btn" class="btn large-btn" type="submit">
-            Add Task
-          </button>
-        </div>
-      </form>
-      <dialog id="confirm-close-dialog" class="rounded-lg p-4">
-        <form method="dialog">
-          <p class="discard-message-text">Discard unsaved changes?</p>
-          <div class="confirm-close-dialog-btn-container">
-            <button id="cancel-btn" class="btn">
-              Cancel
-            </button>
-            <button id="discard-btn" class="btn">
-              Discard
-            </button>
-          </div>
+      </section>
+
+      <!-- Mini player do YouTube -->
+      <section class="card card-video">
+        <h2 class="section-title">🎵 Música de Estudo</h2>
+
+        <form id="video-form" class="form-horizontal">
+          <input
+            id="video-url-input"
+            type="url"
+            placeholder="Link do YouTube"
+            required
+          />
+          <input
+            id="video-title-input"
+            type="text"
+            placeholder="Nome"
+            required
+          />
+          <button type="submit">Adicionar</button>
         </form>
-      </dialog>
-      <div id="tasks-container"></div>
-    </div>
-  </section>
 
-      
+        <select id="video-select"></select>
+        <button onclick="removeSelectedVideo()">
+          Remover Vídeo Selecionado 🗑
+        </button>
+
+        <div class="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+
+      <!-- Relógio Digital -->
+      <section class="card card-relogio">
+        <h2 class="section-title">🕒 Relógio 🕒</h2>
+        <div id="relogio-digital" class="clock"></div>
+        <div id="atividade" class="atividade"></div>
+      </section>
+    </main>
+
+    <!-- <section class="extra-section">
+      <h2>Nova Seção</h2>
+      <p>Conteúdo da nova section.</p>
+    </section> -->
+
     <script src="./scripts/clock.js"></script>
     <script src="./scripts/list.js"></script>
+    <script src="./scripts/video.js"></script>
   </body>
-  
 </html>

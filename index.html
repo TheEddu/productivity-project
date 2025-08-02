@@ -6,8 +6,11 @@
     <title>Auxiliar de Produtividade</title>
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="stylesheet" href="./css/list-styles.css" />
+    <link rel="stylesheet" href="./css/calendar-style.css" />
   </head>
   <body>
+    
+  </main>
     <main class="main-layout">
       <!-- Lista -->
       <section class="card card-todo">
@@ -128,21 +131,61 @@
         </div>
       </section>
 
-      <!-- Relógio Digital -->
+    <section class="card calendar-card">
+      <h2 class="section-title">Calendário de Tarefas Recorrentes</h2>
+          <div class="form-group">
+              <label for="start-date">Data de Início:</label>
+              <input type="date" id="start-date">
+          </div>
+          
+          <div class="form-group">
+              <label for="end-date">Data de Fim:</label>
+              <input type="date" id="end-date">
+          </div>
+          
+          <div class="form-group">
+            
+              <label>Dias da Semana:</label>
+              <div class="checkboxes">
+                  <label><input type="checkbox" value="0"> Domingo</label>
+                  <label><input type="checkbox" value="1"> Segunda</label>
+                  <label><input type="checkbox" value="2"> Terça</label>
+                  <label><input type="checkbox" value="3"> Quarta</label>
+                  <label><input type="checkbox" value="4"> Quinta</label>
+                  <label><input type="checkbox" value="5"> Sexta</label>
+                  <label><input type="checkbox" value="6"> Sábado</label>
+              </div>
+          </div>
+          
+          <div class="form-group">
+              <label for="task">Tarefa:</label>
+              <input type="text" id="task" placeholder="Exemplo">
+          </div>
+          
+          <button onclick="gerarTarefas()">Gerar e Salvar</button>
+      </section>
+
+      <!-- CALENDÁRIO VISUAL -->
+      <div id="calendario-visual">
+        <div class="calendar-header">
+          <button onclick="mudarMes(-1)">◀</button>
+          <h2 id="mes-ano"></h2>
+          <button onclick="mudarMes(1)">▶</button>
+        </div>
+        <div class="calendar-grid" id="grade-calendario"></div>
+      </div>
+
+    <!-- Relógio Digital
       <section class="card card-relogio">
         <h2 class="section-title">🕒 Relógio 🕒</h2>
         <div id="relogio-digital" class="clock"></div>
         <div id="atividade" class="atividade"></div>
-      </section>
-    </main>
+      </section> -->
 
-    <!-- <section class="extra-section">
-      <h2>Nova Seção</h2>
-      <p>Conteúdo da nova section.</p>
-    </section> -->
 
     <script src="./scripts/clock.js"></script>
     <script src="./scripts/list.js"></script>
     <script src="./scripts/video.js"></script>
+    <script src="./scripts/calendar-script.js"></script>
   </body>
 </html>

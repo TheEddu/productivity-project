@@ -1,0 +1,251 @@
+/* body {
+    background: url("https://image.lexica.art/full_webp/639bf730-9c5a-4b20-b71b-1d08ad3b200b");
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+} */
+
+h1 {
+    text-align: center;
+    margin-top: 32px;
+    color: #2d3748;
+}
+
+
+.calendar-card,
+#calendario-visual,
+#calendario-visual *,
+.calendar-header,
+.calendar-grid,
+.calendar-day,
+.calendar-cell,
+#mes-ano,
+.form-group,
+.form-group label,
+#start-date,
+#end-date,
+#task,
+.checkboxes,
+.remove-task-btn,
+.task,
+.tasks-list-container,
+#tasks-list,
+#tasks-list li {
+    /* Reset inherited styles */
+    box-sizing: border-box;
+}
+
+.calendar-card {
+    background: var(--panel);
+    max-width: 400px;
+    margin: 32px auto 0 auto;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px #000a;
+    padding: 32px 46px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    text-align: center;
+    border: 1.5px solid var(--border);
+}
+
+#mes-ano {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: var(--panel);
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px #0002;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #fff;
+}
+
+#start-date,
+#end-date,
+#task {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    margin-top: 4px;
+    font-size: 1rem;
+    background: #181a20;
+    color: var(--text);
+    transition: border 0.2s;
+}
+
+#start-date:focus,
+#end-date:focus,
+#task:focus {
+    border: 1.5px solid;
+    outline: none;
+}
+
+.checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-top: 6px;
+}
+
+.checkboxes label {
+    color: var(--text-muted);
+    font-size: 0.98rem;
+}
+
+.calendar-card button,
+#calendario-visual button:not(.remove-task-btn) {
+    background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+    box-shadow: 0 2px 8px #00ffae22;
+}
+
+.calendar-card button:hover,
+#calendario-visual button:not(.remove-task-btn):hover {
+    background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+}
+
+.calendar-header button {
+    background: transparent !important;
+    border: none;
+    cursor: pointer;
+    padding: 0 8px;
+    font-size: 2rem;
+    color: #fff;
+    transition: color 0.2s;
+}
+
+.tasks-list-container {
+    margin-top: 10px;
+}
+
+#tasks-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#tasks-list li {
+    background: #f3f4f6;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+}
+
+#calendario-visual {
+    margin-top: 3rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 100px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+}
+
+.calendar-day,
+.calendar-cell {
+    background-color: #fff;
+    padding: 0.5rem;
+    min-height: 90px;
+    min-width: 120px;
+    max-width: 140px;
+    width: 130px;
+    border: 1px solid var(--border);
+    color: #181a20;
+    font-size: 1rem;
+    box-sizing: border-box;
+    word-break: break-word;
+    transition: background 0.2s;
+}
+
+@media (max-width: 1000px) {
+    .calendar-day,
+    .calendar-cell {
+        min-width: 80px;
+        width: 90px;
+        max-width: 100px;
+        font-size: 0.95rem;
+    }
+}
+
+.calendar-day {
+    font-weight: bold;
+    text-align: center;
+    background-color: #181a20;
+    color: #fff;
+}
+
+.task {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    background: #1e2128;
+    border-radius: 5px;
+    padding: 6px 8px;
+    margin-top: 4px;
+    word-break: break-word;
+    position: relative;
+    font-size: 0.92rem;
+    color: var(--text);
+    border: none;
+    box-shadow: 0 1px 4px #00ffae22;
+}
+
+.task-text {
+    flex: 1 1 auto;
+    white-space: pre-line;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    color: var(--text);
+}
+
+.remove-task-btn {
+    background: transparent;
+    border: none;
+    padding: 0 0 0 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.remove-task-btn:hover svg {
+    filter: brightness(0.8);
+}

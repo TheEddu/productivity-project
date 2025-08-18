@@ -14,7 +14,7 @@ const taskData = JSON.parse(localStorage.getItem("data")) || [];
 let currentTask = {};
 
 const removeSpecialChars = (val) => {
-  return val.trim().replace(/[^A-Za-z0-9À-ÿçÇ\-:\s,\.]/g, '')
+  return val.trim().replace(/[^A-Za-z0-9À-ÿçÇ\-:\s,\.\/]/g, '')
 }
 
 const addOrUpdateTask = () => {

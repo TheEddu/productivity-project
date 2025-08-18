@@ -197,6 +197,7 @@
   overflow-y: auto;
   margin-top: 8px;
   padding-right: 2px;
+  max-height: 350px;
 }
 
 /* Task Card */

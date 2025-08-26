@@ -18,10 +18,11 @@ const removeSpecialChars = (val) => {
 }
 
 const addOrUpdateTask = () => {
-   if(!titleInput.value.trim()){
-    alert("Please provide a title");
-    return;
+    if(!titleInput.value.trim()){
+      alert("Please provide a title");
+      return;
   }
+
   const dataArrIndex = taskData.findIndex((item) => item.id === currentTask.id);
   const taskObj = {
     id: `${removeSpecialChars(titleInput.value).toLowerCase().split(" ").join("-")}-${Date.now()}`,
@@ -37,6 +38,16 @@ const addOrUpdateTask = () => {
   }
 
   localStorage.setItem("data", JSON.stringify(taskData));
+
+  const tarefasCalendario = JSON.parse(localStorage.getItem("tarefas")) || [];
+  tarefasCalendario.push({
+    data: taskObj.date,
+    descricao: `${taskObj.title} - ${taskObj.description}`,
+  });
+  localStorage.setItem("tarefas", JSON.stringify(tarefasCalendario));
+
+  renderizarCalendario(mesVisivel, anoVisivel);
+
   updateTaskContainer()
   reset()
 };
@@ -68,10 +79,24 @@ const deleteTask = (buttonEl) => {
   const dataArrIndex = taskData.findIndex(
     (item) => item.id === taskEl.id
   );
+  
+  if (dataArrIndex !== -1) {
+    const taskToRemove = taskData[dataArrIndex];
 
-  taskEl.remove();
-  taskData.splice(dataArrIndex, 1);
-  localStorage.setItem("data", JSON.stringify(taskData));
+    // Remover do localStorage do calendário
+    let tarefasCalendario = JSON.parse(localStorage.getItem("tarefas")) || [];
+    tarefasCalendario = tarefasCalendario.filter(
+      (tarefa) => !(tarefa.data === taskToRemove.date && tarefa.descricao === `${taskToRemove.title} - ${taskToRemove.description}`)
+    );
+    localStorage.setItem("tarefas", JSON.stringify(tarefasCalendario));
+
+    taskEl.remove();
+    taskData.splice(dataArrIndex, 1);
+    localStorage.setItem("data", JSON.stringify(taskData));
+
+    // Atualizar o calendário
+    renderizarCalendario(mesVisivel, anoVisivel);
+  }
 }
 
 const editTask = (buttonEl) => {
@@ -131,3 +156,4 @@ taskForm.addEventListener("submit", (e) => {
 
   addOrUpdateTask();
 });
+

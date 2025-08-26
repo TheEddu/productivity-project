@@ -40,6 +40,8 @@ function gerarTarefas() {
     localStorage.setItem("tarefas", JSON.stringify(todasTarefas));
 
     renderizarCalendario(mesVisivel, anoVisivel);
+
+    limparFormulario()
 }
 
 function buscarTarefasPorData(data) {
@@ -58,14 +60,14 @@ function renderizarCalendario(mes, ano) {
 
     document.getElementById("mes-ano").textContent =
         new Date(ano, mes).toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
-
+        
     // Cabeçalho dos dias
-    nomesDiasSemana.forEach(nomeDia => {
-        const elementoDia = document.createElement("div");
-        elementoDia.className = "calendar-day";
-        elementoDia.textContent = nomeDia;
-        gradeCalendario.appendChild(elementoDia);
-    });
+    // nomesDiasSemana.forEach(nomeDia => {
+    //     const elementoDia = document.createElement("div");
+    //     elementoDia.className = "calendar-day";
+    //     elementoDia.textContent = nomeDia;
+    //     gradeCalendario.appendChild(elementoDia);
+    // });
 
     const primeiroDiaDoMes = new Date(ano, mes, 1);
     const ultimoDiaDoMes = new Date(ano, mes + 1, 0);
@@ -133,3 +135,22 @@ function criarDataLocal(stringData) {
   const [ano, mes, dia] = stringData.split("-").map(Number);
   return new Date(ano, mes - 1, dia);
 }
+
+function limparFormulario() {
+    document.getElementById("start-date").value = "";
+    document.getElementById("end-date").value = "";
+    document.getElementById("task").value = "";
+    const checkboxes = document.querySelectorAll("input[type=checkbox]");
+    checkboxes.forEach(checkbox => checkbox.checked = false);
+}
+
+
+// function sincronizarTarefas() {
+//   const tarefasLista = JSON.parse(localStorage.getItem("data")) || [];
+//   const tarefasCalendario = tarefasLista.map(task => ({
+//     data: task.date,
+//     descricao: `${task.title} - ${task.description}`,
+//   }));
+//   localStorage.setItem("tarefas", JSON.stringify(tarefasCalendario));
+//   renderizarCalendario(mesVisivel, anoVisivel);
+// }

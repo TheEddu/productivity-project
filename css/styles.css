@@ -165,5 +165,29 @@ button[onclick="removeSelectedVideo()"]:hover {
 }
 
 
+/* estilização de playPreviousVideo e playNextVideo */
+
+button[onclick="playPreviousVideo()"],
+button[onclick="playNextVideo()"] {
+  background-color: #10b981;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 0.5rem;
+  /* centralizar os botoes */
+  width: 48%;
+  margin-right: 1%;
+
+}
+
+
+
+
+
+
 
 

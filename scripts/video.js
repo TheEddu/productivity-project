@@ -9,6 +9,11 @@ const DEFAULT_VIDEO = {
     title: "LoFi Girl - Default"
 };
 
+let currentIndex = 0;
+let playlist = [];
+let player;
+
+
 function extractVideoId(url) {
     try {
         const urlObj = new URL(url);
@@ -23,7 +28,7 @@ function extractVideoId(url) {
 }
 
 function updateVideoPlayer(videoId) {
-    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`;
+    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&enablejsapi=1`;
     playerIframe.src = embedUrl;
 }
 
@@ -40,12 +45,10 @@ async function saveVideo(videoId, videoTitle) {
 
 function loadVideos() {
     const savedVideos = JSON.parse(localStorage.getItem("savedVideos") || "[]");
-
-    const currentSelectedId = videoSelect.value;
-    videoSelect.innerHTML = "";
-
     const allVideos = [DEFAULT_VIDEO, ...savedVideos];
 
+    // const currentSelectedId = videoSelect.value;
+    videoSelect.innerHTML = "";
     allVideos.forEach((video, index) => {
         const options = document.createElement("option");
         options.value = video.id;
@@ -53,6 +56,7 @@ function loadVideos() {
         videoSelect.appendChild(options);
     });
 
+    playlist = allVideos;
     return savedVideos;
 }
 
@@ -68,7 +72,23 @@ function removeSelectedVideo() {
     loadVideos();
     updateVideoPlayer(DEFAULT_VIDEO.id);
     videoSelect.value = DEFAULT_VIDEO.id;
+    currentIndex = 0;
 }
+
+function playNextVideo() {
+  currentIndex = (currentIndex + 1) % playlist.length;
+  const nextVideo = playlist[currentIndex];
+  updateVideoPlayer(nextVideo.id);
+  videoSelect.value = nextVideo.id;
+}
+
+function playPreviousVideo() {
+  currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+  const prevVideo = playlist[currentIndex];
+  updateVideoPlayer(prevVideo.id);
+  videoSelect.value = prevVideo.id;
+}
+
 
 videoForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -84,13 +104,42 @@ videoForm.addEventListener("submit", (e) => {
     }
 });
 
+
 videoSelect.addEventListener("change", () => {
-    const selectedId = videoSelect.value;
-    updateVideoPlayer(selectedId);
+  const selectedId = videoSelect.value;
+  currentIndex = playlist.findIndex(v => v.id === selectedId);
+  updateVideoPlayer(selectedId);
 });
+
+
+function initYouTubeAPI() {
+  const tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+}
+
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player("youtube-player", {
+    events: {
+      onStateChange: onPlayerStateChange
+    }
+  });
+}
+
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.ENDED) {
+    playNextVideo();
+  }
+}
+
 
 // Inicializar
 document.addEventListener("DOMContentLoaded", () => {
     loadVideos();
+    initYouTubeAPI();
 });
+
+
+
 

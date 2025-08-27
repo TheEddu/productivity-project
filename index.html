@@ -117,12 +117,17 @@
         </form>
 
         <select id="video-select"></select>
+        <div class="video-controls">
+          <button onclick="playPreviousVideo()">⏮ Anterior</button>
+          <button onclick="playNextVideo()">⏭ Próximo</button>
+        </div>
         <button onclick="removeSelectedVideo()">
           Remover Vídeo Selecionado 🗑
         </button>
 
         <div class="video-container">
           <iframe
+            id="youtube-player"
             src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1"
             frameborder="0"
             allow="autoplay; encrypted-media"

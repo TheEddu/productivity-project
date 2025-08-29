@@ -3,6 +3,7 @@ const videoForm = document.getElementById("video-form");
 const videoInput = document.getElementById("video-url-input");
 const videoTitleInput = document.getElementById("video-title-input");
 const videoSelect = document.getElementById("video-select");
+const volumeControl = document.getElementById("volume-control");
 
 const DEFAULT_VIDEO = {
     id: "jfKfPfyJRdk",
@@ -12,7 +13,8 @@ const DEFAULT_VIDEO = {
 let currentIndex = 0;
 let playlist = [];
 let player;
-
+let defaultVolume = 10;
+let currentVolume = defaultVolume;
 
 function extractVideoId(url) {
     try {
@@ -28,11 +30,15 @@ function extractVideoId(url) {
 }
 
 function updateVideoPlayer(videoId) {
-    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&enablejsapi=1`;
+    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1`;
     playerIframe.src = embedUrl;
+
+    if (player && player.setVolume) {
+        player.setVolume(currentVolume);
+    }
 }
 
-async function saveVideo(videoId, videoTitle) {
+function saveVideo(videoId, videoTitle) {
     const videos = loadVideos();
     const alreadyExists = videos.some((v) => v.id === videoId || DEFAULT_VIDEO.id === videoId);
     if (alreadyExists) return;
@@ -47,7 +53,6 @@ function loadVideos() {
     const savedVideos = JSON.parse(localStorage.getItem("savedVideos") || "[]");
     const allVideos = [DEFAULT_VIDEO, ...savedVideos];
 
-    // const currentSelectedId = videoSelect.value;
     videoSelect.innerHTML = "";
     allVideos.forEach((video, index) => {
         const options = document.createElement("option");
@@ -75,20 +80,53 @@ function removeSelectedVideo() {
     currentIndex = 0;
 }
 
-function playNextVideo() {
-  currentIndex = (currentIndex + 1) % playlist.length;
-  const nextVideo = playlist[currentIndex];
-  updateVideoPlayer(nextVideo.id);
-  videoSelect.value = nextVideo.id;
+function playNextVideo(auto = false) {
+    currentIndex++;
+    if (currentIndex >= playlist.length) {
+        currentIndex = 0;
+    }
+    const nextVideo = playlist[currentIndex];
+    updateVideoPlayer(nextVideo.id);
+    videoSelect.value = nextVideo.id;
+    if (auto) console.log(`Auto-next para: ${nextVideo.title}`);
 }
 
 function playPreviousVideo() {
-  currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
-  const prevVideo = playlist[currentIndex];
-  updateVideoPlayer(prevVideo.id);
-  videoSelect.value = prevVideo.id;
+    currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+    const prevVideo = playlist[currentIndex];
+    updateVideoPlayer(prevVideo.id);
+    videoSelect.value = prevVideo.id;
 }
 
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player("youtube-player", {
+        events: {
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange,
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    player.setVolume(currentVolume);
+}
+
+function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+        player.setVolume(currentVolume);
+    }
+
+    if (event.data === YT.PlayerState.ENDED) {
+        playNextVideo(true);
+    }
+}
+
+function initYouTubeAPI() {
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
 
 videoForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -104,42 +142,29 @@ videoForm.addEventListener("submit", (e) => {
     }
 });
 
-
 videoSelect.addEventListener("change", () => {
-  const selectedId = videoSelect.value;
-  currentIndex = playlist.findIndex(v => v.id === selectedId);
-  updateVideoPlayer(selectedId);
+    const selectedId = videoSelect.value;
+    currentIndex = playlist.findIndex(v => v.id === selectedId);
+    updateVideoPlayer(selectedId);
 });
 
-
-function initYouTubeAPI() {
-  const tag = document.createElement("script");
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.body.appendChild(tag);
-}
-
-
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player("youtube-player", {
-    events: {
-      onStateChange: onPlayerStateChange
+volumeControl.addEventListener("input", (e) => {
+    currentVolume = parseInt(e.target.value, 10);
+    if (player && player.setVolume) {
+        player.setVolume(currentVolume);
     }
-  });
-}
+    localStorage.setItem("videoVolume", currentVolume);
+});
 
-function onPlayerStateChange(event) {
-  if (event.data === YT.PlayerState.ENDED) {
-    playNextVideo();
-  }
-}
-
-
-// Inicializar
 document.addEventListener("DOMContentLoaded", () => {
     loadVideos();
     initYouTubeAPI();
+    const savedVolume = localStorage.getItem("videoVolume");
+    if (savedVolume !== null) {
+        currentVolume = parseInt(savedVolume, 10);
+        volumeControl.value = currentVolume;
+    } else {
+        currentVolume = defaultVolume;
+        volumeControl.value = defaultVolume;
+    }
 });
-
-
-
-

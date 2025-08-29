@@ -1,7 +1,7 @@
 # Auxiliador de Produtividade
 
 Este projeto é uma aplicação web que combina **gestão de tempo, foco e tarefas** em um só lugar, com um design limpo e minimalista.  
-Contém um relógio digital, um mini player do YouTube para músicas de estudo e um aplicativo de tarefas (Todo App), tudo em uma interface moderna.
+Contém um calendário, um mini player do YouTube para músicas de estudo e um aplicativo de tarefas (Todo App), tudo em uma interface moderna.
 
 ## Motivação
 
@@ -15,8 +15,8 @@ Na versão inicial do projeto, o vídeo era fixo, definido no código fonte, o q
 ## Objetivo
 
 Criar um ambiente de produtividade pessoal com:
-- Relógio dinâmico com atividades programadas por blocos de tempo
 - Todo List para registrar e organizar tarefas
+- Calendário integrado para datas importantes e recorrentes e com integração com o Todo List
 - Mini player de YouTube com seleção personalizada de músicas
 - Layout modular, acessível e expansível
 
@@ -32,9 +32,10 @@ Com esse projeto, busco resolver isso ao oferecer tudo que for conveniente para 
 
 ## Funcionalidades
 
-- **Relógio Digital:** Exibe o horário atual em destaque.
-- **Mini Player do YouTube:** Player embutido para músicas de estudo, já configurado para autoplay e mudo.
-- **Todo App:** Permite adicionar, editar e remover tarefas, com campos para título, data e descrição.
+- **Mini Player do YouTube:** Player embutido para músicas de estudo, já configurado para autoplay e volume em 10%, personalizavel pelo usuário.
+- **Todo App:** Permite adicionar, editar e remover tarefas, com campos para título, data e descrição, automaticamente adicionadas ao calendário.
+- **Calendário:** Exibe o mês atual com destaque para o dia atual e marca as datas com tarefas.
+- **Tarefas Recorrentes:** Opção para marcar tarefas como recorrentes, que reaparecem de tempos em tempos.
 
 ## Tecnologias Utilizadas
 
@@ -50,7 +51,9 @@ projeto/
 ├── css/
 │   └── styles.css
 │   └── list-styles.css
+│   └── calendar-style.css
 ├── scripts/
+│   ├── calendar-script.js
 │   ├── clock.js
 │   └── list.js
 │   └── video.js
@@ -60,14 +63,18 @@ projeto/
 
 ## Customização
 
-- Para alterar o vídeo do player, modifique o atributo `src` do `<iframe>` no HTML.
-- Para personalizar estilos, edite o arquivo `css/styles.css` ou adicione classes do Tailwind diretamente no HTML.
+- Para alterar o vídeo do player do YouTube, basta inserir o link do vídeo desejado no campo "Link do YouTube", inserir o nome que quiser para reconhecer o video, e clicar em "Adicionar". O vídeo será salvo no armazenamento local do navegador e estará disponível para seleção.
+
 
 ## Screenshots
 
-![Screenshot do projeto](image.png)
+![Tela inicial do projeto](home.png)
+![Visualização do Calendário](calendario.png)
 
 ---
 
 ## Observações
 - A imagem de fundo é da lexica.art.
+- O projeto utiliza localStorage para salvar as tarefas e vídeos, garantindo que os dados persistam mesmo após o fechamento do navegador.
+- O projeto é open-source.
+

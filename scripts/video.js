@@ -81,7 +81,7 @@ function removeSelectedVideo() {
 }
 
 function playNextVideo(auto = false) {
-    currentIndex++;
+    currentIndex = (currentIndex + 1) % videoPlaylist.length;
     if (currentIndex >= playlist.length) {
         currentIndex = 0;
     }
@@ -108,6 +108,7 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
+    event.target.playVideo();
     player.setVolume(currentVolume);
 }
 

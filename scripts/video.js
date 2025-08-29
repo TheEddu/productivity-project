@@ -81,7 +81,7 @@ function removeSelectedVideo() {
 }
 
 function playNextVideo(auto = false) {
-    currentIndex = (currentIndex + 1) % videoPlaylist.length;
+    currentIndex++;
     if (currentIndex >= playlist.length) {
         currentIndex = 0;
     }

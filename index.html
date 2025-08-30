@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="./css/calendar-style.css" />
   </head>
   <body>
+
+        <!-- Relógio Digital-->
+      <section class="card card-relogio">
+        <h2 class="section-title">🕒 Relógio 🕒</h2>
+        <div id="relogio-digital" class="clock"></div>
+        <div id="atividade" class="atividade"></div>
+      </section> 
+
   
     <main class="main-layout">
 
@@ -185,18 +193,13 @@
         </div>
 
     </main>
-    <!-- Relógio Digital
-      <section class="card card-relogio">
-        <h2 class="section-title">🕒 Relógio 🕒</h2>
-        <div id="relogio-digital" class="clock"></div>
-        <div id="atividade" class="atividade"></div>
-      </section> -->
 
       <div class="card card-background">
           <h2 class="section-title">Gerenciar Background</h2>
           <form id="background-form" class="form-horizontal">
               <input type="url" id="background-url-input" placeholder="URL da imagem de fundo" required />
-              <input type="text" id="background-name-input" placeholder="Nome da imagem (opcional)" />
+              <input type="text" id="background-name-input" placeholder="Nome da imagem" />
+              <input type="time" id="background-time-input" />
               <button type="submit">Adicionar</button>
           </form>
           <select id="background-select"></select>

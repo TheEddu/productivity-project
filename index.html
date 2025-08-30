@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="./css/calendar-style.css" />
   </head>
   <body>
-    
-  </main>
+  
     <main class="main-layout">
+
       <!-- Lista -->
       <section class="card card-todo">
         <h1 class="section-title">✅ Lista de Tarefas (Todo App)</h1>
@@ -140,50 +140,51 @@
         </div>
       </section>
 
-    <section class="card calendar-card">
-      <h2 class="section-title">Calendário de Tarefas Recorrentes</h2>
-          <div class="form-group">
-              <label for="start-date">Data de Início:</label>
-              <input type="date" id="start-date">
-          </div>
-          
-          <div class="form-group">
-              <label for="end-date">Data de Fim:</label>
-              <input type="date" id="end-date">
-          </div>
-          
-          <div class="form-group">
+      <section class="card calendar-card">
+        <h2 class="section-title">Calendário de Tarefas Recorrentes</h2>
+            <div class="form-group">
+                <label for="start-date">Data de Início:</label>
+                <input type="date" id="start-date">
+            </div>
             
-              <label>Dias da Semana:</label>
-              <div class="checkboxes">
-                  <label><input type="checkbox" value="0"> Domingo</label>
-                  <label><input type="checkbox" value="1"> Segunda</label>
-                  <label><input type="checkbox" value="2"> Terça</label>
-                  <label><input type="checkbox" value="3"> Quarta</label>
-                  <label><input type="checkbox" value="4"> Quinta</label>
-                  <label><input type="checkbox" value="5"> Sexta</label>
-                  <label><input type="checkbox" value="6"> Sábado</label>
-              </div>
-          </div>
-          
-          <div class="form-group">
-              <label for="task">Tarefa:</label>
-              <input type="text" id="task" placeholder="Exemplo">
-          </div>
-          
-          <button onclick="gerarTarefas()">Gerar e Salvar</button>
-      </section>
+            <div class="form-group">
+                <label for="end-date">Data de Fim:</label>
+                <input type="date" id="end-date">
+            </div>
+            
+            <div class="form-group">
+              
+                <label>Dias da Semana:</label>
+                <div class="checkboxes">
+                    <label><input type="checkbox" value="0"> Domingo</label>
+                    <label><input type="checkbox" value="1"> Segunda</label>
+                    <label><input type="checkbox" value="2"> Terça</label>
+                    <label><input type="checkbox" value="3"> Quarta</label>
+                    <label><input type="checkbox" value="4"> Quinta</label>
+                    <label><input type="checkbox" value="5"> Sexta</label>
+                    <label><input type="checkbox" value="6"> Sábado</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="task">Tarefa:</label>
+                <input type="text" id="task" placeholder="Exemplo">
+            </div>
+            
+            <button onclick="gerarTarefas()">Gerar e Salvar</button>
+        </section>
 
-      <!-- CALENDÁRIO VISUAL -->
-      <div id="calendario-visual">
-        <div class="calendar-header">
-          <button onclick="mudarMes(-1)">◀</button>
-          <h2 id="mes-ano"></h2>
-          <button onclick="mudarMes(1)">▶</button>
+        <!-- CALENDÁRIO VISUAL -->
+        <div id="calendario-visual">
+          <div class="calendar-header">
+            <button onclick="mudarMes(-1)">◀</button>
+            <h2 id="mes-ano"></h2>
+            <button onclick="mudarMes(1)">▶</button>
+          </div>
+          <div class="calendar-grid" id="grade-calendario"></div>
         </div>
-        <div class="calendar-grid" id="grade-calendario"></div>
-      </div>
 
+    </main>
     <!-- Relógio Digital
       <section class="card card-relogio">
         <h2 class="section-title">🕒 Relógio 🕒</h2>
@@ -191,10 +192,24 @@
         <div id="atividade" class="atividade"></div>
       </section> -->
 
+      <div class="card card-background">
+          <h2 class="section-title">Gerenciar Background</h2>
+          <form id="background-form" class="form-horizontal">
+              <input type="url" id="background-url-input" placeholder="URL da imagem de fundo" required />
+              <input type="text" id="background-name-input" placeholder="Nome da imagem (opcional)" />
+              <button type="submit">Adicionar</button>
+          </form>
+          <select id="background-select"></select>
+          <button id="remove-background-button">Remover Fundo</button>
+      </div>
+
+
+
 
     <script src="./scripts/clock.js"></script>
     <script src="./scripts/list.js"></script>
     <script src="./scripts/video.js"></script>
     <script src="./scripts/calendar-script.js"></script>
+    <script src="./scripts/background.js"></script>
   </body>
 </html>

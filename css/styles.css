@@ -186,8 +186,52 @@ button[onclick="playNextVideo()"] {
 
 
 
+/* Background */
+.card-background {
+  margin: 2rem 1rem;
+}
 
+#background-form input,
+#background-form button,
+#background-select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
 
+#background-form button {
+  background-color: #3b82f6;
+  color: white;
+  transition: background-color 0.3s;
+}
 
+#background-form button:hover {
+  background-color: #2563eb;
+}
 
+#background-select {
+  background-color: #fff;
+  color: #000;
+}
 
+#background-form input[type="text"] {
+  margin-top: 0.5rem;
+}
+
+#remove-background-button {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 0.5rem;
+}
+
+#remove-background-button:hover {
+  background-color: #b91c1c;
+}
